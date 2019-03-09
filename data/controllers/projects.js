@@ -79,9 +79,20 @@ server.put('/:id', (req,res) => {
     });
 })
 
-
-
-
-
+server.get('/actions/:id', (req,res) =>{
+  const {id} = req.params;
+  projects
+    .getProjectActions(id)
+    .then(response => {
+      if (response.length === 0){
+        res.json({message: "this project has no available actions"})
+      }
+      res.json(response)
+    })
+    .catch(err => {
+      return errorHelper(500,
+      "Internal server error");
+    })
+})
 
 module.exports = server;
