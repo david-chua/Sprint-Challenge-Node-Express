@@ -6,8 +6,10 @@ const projectRouter = require('./data/controllers/projects.js');
 const server = express();
 const parser = express.json();
 const logMiddleware = logger('dev');
+const cors = require('cors');
 
 server.use(parser,logMiddleware);
+server.use(cors());
 
 server.use('/api/projects', projectRouter);
 server.use('/api/actions', actionRouter);
