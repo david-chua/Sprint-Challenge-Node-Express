@@ -47,6 +47,28 @@ server.delete('/:id', (req,res) => {
     });
 })
 
+server.put('/:id', (req,res) => {
+  const {id} = req.params;
+  const updatedProject = {
+    name: req.body.name,
+    description: req.body.description,
+    completed: req.body.completed
+  }
+  projects
+    .update(id, updatedProject)
+    .then(response => {
+      if (response === 0){
+        return errorHelper(404, 'No projects found with that ID', res);
+      }
+      res.json(response)
+    })
+    .catch(err => {
+      return errorHelper(500, "Internal server error", res);
+    });
+})
+
+
+
 
 
 
