@@ -15,6 +15,18 @@ server.get('/', (req,res) => {
     })
 })
 
+server.get('/:id', (req,res) => {
+  const {id} = req.params
+  projects
+    .get(id)
+    .then(foundProjects =>{
+      res.json(foundProjects);
+    })
+    .catch(err => {
+      return errorHelper(500, 'Internal server error', res);
+    })
+})
+
 server.post('/', (req,res) => {
   const newProject = {
     name: req.body.name,
